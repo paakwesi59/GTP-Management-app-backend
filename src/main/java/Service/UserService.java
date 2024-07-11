@@ -41,4 +41,7 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
     // Other methods like updatePassword, authenticateUser, etc.
+
+
+
 }
