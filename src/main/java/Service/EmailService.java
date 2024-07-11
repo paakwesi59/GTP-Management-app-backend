@@ -10,7 +10,7 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void sendInvitationEmail(String email, String username, String temporaryPassword) {
+    public void sendInvitationEmail(String email, String username) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
         message.setSubject("Invitation to join the platform");
