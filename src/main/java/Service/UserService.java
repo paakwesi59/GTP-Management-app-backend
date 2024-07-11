@@ -9,5 +9,7 @@ public interface UserService {
     boolean processForgotPassword(String email);
     boolean resetPassword(String token, String newPassword);
     boolean changePassword(String username, String oldPassword, String newPassword);
+
+
 }
 

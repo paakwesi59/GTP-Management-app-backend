@@ -38,7 +38,7 @@ public class UserServiceImplementation implements UserService {
     }
 
     public Optional<User> findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return Optional.ofNullable(userRepository.findByEmail(email));
     }
 
     @Override
@@ -71,4 +71,19 @@ public class UserServiceImplementation implements UserService {
         return false;
     }
     // Other methods like updatePassword, authenticateUser, etc.
+
+
+
+        // method for change password
+    public boolean changePassword1(String username, String oldPassword, String newPassword ) {
+        User user = userRepository.findByUsername(username);
+        if (user == null || !passwordEncoder.matches(oldPassword, user.getPassword())) {
+            return false;
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+        return true;
+    }
 }
