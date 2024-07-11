@@ -11,15 +11,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/api/auth")
 public class AuthenticationController {
 
+
+    private UserService userService;
+
     // Password reset beginning
     // Method to handle password reset
     @PostMapping("/reset-password")
     public ResponseEntity<?> processResetPassword(@RequestBody ResetPasswordRequest request) {
         if (!request.getPassword().equals(request.getConfirmPassword())) {
             return ResponseEntity.badRequest().body(new ResetPasswordRequest.MessageResponse("Passwords do not match."));
+
         }
 
         boolean result = userService.resetPassword(request.getToken(), request.getPassword());
+
+
 
         if (result) {
             return ResponseEntity.ok(new ResetPasswordRequest.MessageResponse("Password has been reset successfully."));
