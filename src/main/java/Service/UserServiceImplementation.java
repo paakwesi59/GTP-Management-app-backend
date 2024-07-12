@@ -6,9 +6,11 @@ import Repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
+
+
 
 @Service
 public class UserServiceImplementation implements UserService {
@@ -61,10 +63,7 @@ public class UserServiceImplementation implements UserService {
         return false;
     }
 
-    @Override
-    public boolean resetPassword(String token, String newPassword) {
-        return false;
-    }
+
 
     @Override
     public boolean changePassword(String username, String oldPassword, String newPassword) {
@@ -90,16 +89,17 @@ public class UserServiceImplementation implements UserService {
 
 //reset password method
     @Override
-    public boolean resetPassword(String token, String newPassword){
-        Optional<PasswordResetToken> passwordResetToken = tokenRepository.findByToken(token);
-        if (!passwordResetToken.isPresent()|| passwordResetToken.get().isExpired()){
-            return false;
+    public boolean resetPassword(String token, String newPassword) {
+        Optional<Model.User> userOptional = Optional.ofNullable(userRepository.findByResetToken(token));
+        if (!userOptional.isPresent() || userOptional.get().isResetTokenExpired()) {
+            return false; // Invalid or expired token
         }
-        User user = passwordResetToken.get().getUser();
+        User user = userOptional.get();
         user.setPassword(passwordEncoder.encode(newPassword));
-        userRepository.save(user);
+        user.setResetToken(null); // Clear the reset token
+        user.setResetTokenExpiryDate(null); // Clear the token expiry date
 
-        tokenRepository.delete(passwordResetToken.get());
+        userRepository.save(user);
         return true;
     }
 }
