@@ -12,6 +12,7 @@ import java.util.UUID;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -40,5 +41,6 @@ public class UserService {
     public Optional<User> findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
     // Other methods like updatePassword, authenticateUser, etc.
 }

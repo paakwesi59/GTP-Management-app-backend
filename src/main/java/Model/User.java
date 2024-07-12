@@ -1,9 +1,11 @@
 package Model;
 
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collation = "users")
+@Data
+@Document(collection = "users")
 public class User {
 
     @Id
@@ -12,13 +14,15 @@ public class User {
     private String password;
     private boolean temporaryPassword;
     private Role role;
+    private String resetToken;
 
-    public User(String id, String email, String password, boolean temporaryPassword, Role role) {
+    public User(String id, String email, String password, boolean temporaryPassword, Role role, String resetToken) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.temporaryPassword = temporaryPassword;
         this.role = role;
+        this.resetToken = resetToken;
     }
 
     public User() {
@@ -33,14 +37,6 @@ public class User {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -49,7 +45,15 @@ public class User {
         this.password = password;
     }
 
-    public boolean getTemporaryPassword() {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isTemporaryPassword() {
         return temporaryPassword;
     }
 
@@ -63,5 +67,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
     }
 }
