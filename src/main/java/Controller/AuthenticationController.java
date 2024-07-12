@@ -1,6 +1,7 @@
 package Controller;
 
 import Service.UserService;
+import  Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -127,7 +128,6 @@ public class AuthenticationController {
             redirectAttributes.addFlashAttribute("errorMessage", "New passwords do not match.");
             return "redirect:/change-password";
         }
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
 
