@@ -3,6 +3,7 @@ package Controller;
 import Model.Role;
 import Model.User;
 import Service.UserService;
+import Service.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +17,11 @@ public class TrainerController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserServiceImplementation userServiceImplementation;
+
     @PostMapping("/invite")
     public User inviteStudent(@RequestParam String email) {
-        return userService.inviteUser(email, Role.STUDENT);
+        return userServiceImplementation.inviteUser(email, Role.STUDENT);
     }
 }

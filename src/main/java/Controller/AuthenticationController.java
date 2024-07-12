@@ -2,6 +2,8 @@ package Controller;
 
 import Service.UserService;
 import  Model.User;
+import Service.UserServiceImplementation;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -19,6 +22,9 @@ public class AuthenticationController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserServiceImplementation userServiceImplementation;
 
     @GetMapping("/login")
     public String showLoginForm() {
@@ -51,6 +57,16 @@ public class AuthenticationController {
 
     // Password reset beginning
     // Method to handle password reset
+    @PostMapping("/forgot")
+    public ResponseEntity<?> forgotPassword(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        try {
+            userServiceImplementation.sendResetToken(email);
+        } catch (MessagingException e) {
+            return ResponseEntity.status(500).body("Failed to send email");
+        }
+        return ResponseEntity.ok("Password reset link has been sent");
+    }
     @PostMapping("/reset-password")
     public ResponseEntity<?> processResetPassword(@RequestBody ResetPasswordRequest request) {
         if (!request.getPassword().equals(request.getConfirmPassword())) {

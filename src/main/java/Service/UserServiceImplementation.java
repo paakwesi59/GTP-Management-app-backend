@@ -3,7 +3,11 @@ package Service;
 import Model.Role;
 import Model.User;
 import Repo.UserRepository;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +26,9 @@ public class UserServiceImplementation implements UserService {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private JavaMailSender mailSender;
 
     public User inviteUser(String email, Role role) {
         String temporaryPassword = UUID.randomUUID().toString().substring(0, 8); // Shorter temporary password
@@ -63,8 +70,6 @@ public class UserServiceImplementation implements UserService {
         return false;
     }
 
-
-
     public boolean changePassword(String username, String oldPassword, String newPassword) {
         return false;
     }
@@ -92,6 +97,30 @@ public class UserServiceImplementation implements UserService {
 
 
 //reset password method
+
+    public void sendResetToken(String email) throws MessagingException {
+        Optional<User> userOpt = userRepository.findByEmail(email);
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            String token = UUID.randomUUID().toString();
+            user.setResetToken(token);
+            userRepository.save(user);
+            sendEmail(user.getEmail(), token);
+        }
+    }
+
+    private void sendEmail(String to, String token) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+        helper.setTo(to);
+        helper.setSubject("Password Reset Request");
+        String content = "<p>Click the link below to reset your password:</p>"
+                + "<p><a href=\"http://localhost:8080/reset-password?token=" + token + "\">Reset Password</a></p>";
+        helper.setText(content, true);
+
+        mailSender.send(message);
+    }
     @Override
     public boolean resetPassword(String token, String newPassword) {
         Optional<Model.User> userOptional = Optional.ofNullable(userRepository.findByResetToken(token));
