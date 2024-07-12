@@ -3,9 +3,7 @@ package Model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
-
-@Document(collection = "users")
+@Document(collation = "users")
 public class User {
 
     @Id
@@ -14,21 +12,13 @@ public class User {
     private String password;
     private boolean temporaryPassword;
     private Role role;
-    private String resetToken;
-    private LocalDateTime resetTokenExpiryDate;
 
-    public User(String id, String email, String password, boolean temporaryPassword, Role role, String resetToken) {
+    public User(String id, String email, String password, boolean temporaryPassword, Role role) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.temporaryPassword = temporaryPassword;
         this.role = role;
-        this.resetToken = resetToken;
-    }
-
-    public User(String resetToken) {
-
-        this.resetToken = resetToken;
     }
 
     public User() {
@@ -37,22 +27,6 @@ public class User {
 
     public String getId() {
         return id;
-    }
-
-    public String getResetToken() {
-        return resetToken;
-    }
-
-    public void setResetToken(String resetToken) {
-        this.resetToken = resetToken;
-    }
-
-    public LocalDateTime getResetTokenExpiryDate() {
-        return resetTokenExpiryDate;
-    }
-
-    public void setResetTokenExpiryDate(LocalDateTime resetTokenExpiryDate) {
-        this.resetTokenExpiryDate = resetTokenExpiryDate;
     }
 
     public void setId(String id) {
@@ -92,6 +66,12 @@ public class User {
     }
 
     public boolean isResetTokenExpired() {
-        return resetTokenExpiryDate.isBefore(LocalDateTime.now());
+        return false;
+    }
+
+    public void setResetToken(Object o) {
+    }
+
+    public void setResetTokenExpiryDate(Object o) {
     }
 }

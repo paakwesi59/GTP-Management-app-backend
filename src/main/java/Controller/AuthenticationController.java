@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
@@ -26,9 +28,9 @@ public class AuthenticationController {
     @PostMapping("/login")
     public String loginUser(@RequestParam String email, @RequestParam String password, Model model) {
         try {
-            User user = userService.findUserByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            Optional<User> user = userService.findUserByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
             if (userService.checkPassword(user, password)) {
-                if (user.getTemporaryPassword()) {
+                if (user.get().getTemporaryPassword()) {
                     // Redirect to change password page if it's a temporary password
                     model.addAttribute("email", email);
                     return "redirect:/change-password";

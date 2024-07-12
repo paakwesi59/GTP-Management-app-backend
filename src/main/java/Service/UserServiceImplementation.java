@@ -6,7 +6,7 @@ import Repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -39,7 +39,7 @@ public class UserServiceImplementation implements UserService {
         return user;
     }
 
-    public Optional<User> findUserByEmail(String email) {
+    public Optional<Optional<User>> findUserByEmail(String email) {
         return Optional.ofNullable(userRepository.findByEmail(email));
     }
 
@@ -66,6 +66,11 @@ public class UserServiceImplementation implements UserService {
 
 
     public boolean changePassword(String username, String oldPassword, String newPassword) {
+        return false;
+    }
+
+    @Override
+    public boolean checkPassword(Optional<User> user, String password) {
         return false;
     }
     // Other methods like updatePassword, authenticateUser, etc.
