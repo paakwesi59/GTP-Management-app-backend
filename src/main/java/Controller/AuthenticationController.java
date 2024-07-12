@@ -1,9 +1,12 @@
 package Controller;
 
 import Service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -11,8 +14,37 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/api/auth")
 public class AuthenticationController {
 
-
+    @Autowired
     private UserService userService;
+
+    @GetMapping("/login")
+    public String showLoginForm() {
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String loginUser(@RequestParam String email, @RequestParam String password, Model model) {
+        try {
+            User user = userService.findUserByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            if (userService.checkPassword(user, password)) {
+                if (user.getTemporaryPassword()) {
+                    // Redirect to change password page if it's a temporary password
+                    model.addAttribute("email", email);
+                    return "redirect:/change-password";
+                }
+                model.addAttribute("message", "Login successful.");
+                return "home"; // Redirect to a home page or dashboard
+            } else {
+                model.addAttribute("message", "Invalid email or password.");
+                return "login";
+            }
+        } catch (UsernameNotFoundException e) {
+            model.addAttribute("message", "User not found.");
+        } catch (Exception e) {
+            model.addAttribute("message", "An error occurred while logging in.");
+        }
+        return "login";
+    }
 
     // Password reset beginning
     // Method to handle password reset
