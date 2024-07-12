@@ -86,4 +86,20 @@ public class UserServiceImplementation implements UserService {
 
         return true;
     }
+
+
+//reset password method
+    @Override
+    public boolean resetPassword(String token, String newPassword){
+        Optional<PasswordResetToken> passwordResetToken = tokenRepository.findByToken(token);
+        if (!passwordResetToken.isPresent()|| passwordResetToken.get().isExpired()){
+            return false;
+        }
+        User user = passwordResetToken.get().getUser();
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+        tokenRepository.delete(passwordResetToken.get());
+        return true;
+    }
 }
