@@ -33,7 +33,7 @@ public class AuthenticationController {
             return ResponseEntity.badRequest().body(new ResetPasswordRequest.MessageResponse("Invalid or expired token."));
         }
     }
-//Dto classes
+   //Dto classes
     class ResetPasswordRequest {
         private String token;
         private String password;
