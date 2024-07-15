@@ -10,15 +10,19 @@ public class User {
     private String id;
     private String email;
     private String password;
-    private String temporaryPassword;
+    private boolean temporaryPassword;
     private Role role;
 
-    public User(String id, String email, String password, String temporaryPassword, Role role) {
+    public User(String id, String email, String password, boolean temporaryPassword, Role role) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.temporaryPassword = temporaryPassword;
         this.role = role;
+    }
+
+    public User() {
+
     }
 
     public String getId() {
@@ -45,11 +49,11 @@ public class User {
         this.password = password;
     }
 
-    public String getTemporaryPassword() {
+    public boolean getTemporaryPassword() {
         return temporaryPassword;
     }
 
-    public void setTemporaryPassword(String temporaryPassword) {
+    public void setTemporaryPassword(boolean temporaryPassword) {
         this.temporaryPassword = temporaryPassword;
     }
 
@@ -59,5 +63,16 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public boolean isResetTokenExpired() {
+        return false;
+    }
+
+    public void setResetToken(Object o) {
+    }
+
+    public void setResetTokenExpiryDate(Object o) {
+
     }
 }
