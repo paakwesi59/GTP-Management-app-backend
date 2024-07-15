@@ -55,13 +55,9 @@ public class UserServiceImplementation implements UserService {
         return false;
     }
 
-    @Override
-    public User findByUsername(String username) {
-        return null;
-    }
 
     @Override
-    public boolean validatePassword(User user, String password) {
+    public boolean validatePassword(User email, String password) {
         return false;
     }
 
@@ -70,7 +66,7 @@ public class UserServiceImplementation implements UserService {
         return false;
     }
 
-    public boolean changePassword(String username, String oldPassword, String newPassword) {
+    public boolean changePassword(String email, String oldPassword, String newPassword) {
         return false;
     }
 
@@ -83,17 +79,20 @@ public class UserServiceImplementation implements UserService {
 
 
         // method for change password
-    public boolean changePassword1(String username, String oldPassword, String newPassword ) {
-        User user = userRepository.findByUsername(username);
-        if (user == null || !passwordEncoder.matches(oldPassword, user.getPassword())) {
-            return false;
+        public boolean changePassword1(String email, String oldPassword, String newPassword) {
+            Optional<User> optionalUser = userRepository.findByEmail(email);
+
+            if (optionalUser.isEmpty() || !passwordEncoder.matches(oldPassword, optionalUser.get().getPassword())) {
+                return false;
+            }
+
+            User user = optionalUser.get();
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(user);
+
+            return true;
         }
 
-        user.setPassword(passwordEncoder.encode(newPassword));
-        userRepository.save(user);
-
-        return true;
-    }
 
 
 //reset password method
