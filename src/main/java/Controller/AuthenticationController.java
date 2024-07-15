@@ -147,9 +147,9 @@ public class AuthenticationController {
             return "redirect:/change-password";
         }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
+        String email = auth.getName();
 
-        boolean result = UserService.changePassword(username, oldPassword, newPassword);
+        boolean result = UserService.changePassword(email, oldPassword, newPassword);
 
         if (result) {
             redirectAttributes.addFlashAttribute("successMessage", "Password has been changed successfully.");

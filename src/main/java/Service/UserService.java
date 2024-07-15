@@ -8,7 +8,6 @@ import java.util.Optional;
 @Service
 public interface UserService {
     boolean existsByEmail(String email);
-    User findByUsername(String username);
     boolean validatePassword(User user, String password);
     boolean processForgotPassword(String email);
     boolean resetPassword(String token, String newPassword);
