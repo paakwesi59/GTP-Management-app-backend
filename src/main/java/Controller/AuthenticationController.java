@@ -1,7 +1,7 @@
 package Controller;
 
+import Model.User;
 import Service.UserService;
-import  Model.User;
 import Service.UserServiceImplementation;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +12,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.stereotype.Controller;
 import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
+
+@Controller
 public class AuthenticationController {
 
     @Autowired
@@ -67,6 +72,7 @@ public class AuthenticationController {
         }
         return ResponseEntity.ok("Password reset link has been sent");
     }
+
     @PostMapping("/reset-password")
     public ResponseEntity<?> processResetPassword(@RequestBody ResetPasswordRequest request) {
         if (!request.getPassword().equals(request.getConfirmPassword())) {
@@ -77,14 +83,14 @@ public class AuthenticationController {
         boolean result = userService.resetPassword(request.getToken(), request.getPassword());
 
 
-
         if (result) {
             return ResponseEntity.ok(new ResetPasswordRequest.MessageResponse("Password has been reset successfully."));
         } else {
             return ResponseEntity.badRequest().body(new ResetPasswordRequest.MessageResponse("Invalid or expired token."));
         }
     }
-   //Dto classes
+
+    //Dto classes
     class ResetPasswordRequest {
         private String token;
         private String password;
@@ -120,47 +126,21 @@ public class AuthenticationController {
 
             public MessageResponse(String message) {
                 this.message = message;
+
             }
-
-            // getter and setter
-
-            public String getMessage() {
-                return message;
-            }
-
-            public void setMessage(String message) {
-                this.message = message;
-            }
-
-    @GetMapping("/change-password")
-    public String showChangePasswordForm() {
-        return "change-password";
+        }
     }
-
     @PostMapping("/change-password")
-    public String processChangePassword(@RequestParam("oldPassword") String oldPassword,
-                                        @RequestParam("newPassword") String newPassword,
-                                        @RequestParam("confirmNewPassword") String confirmNewPassword,
-                                        RedirectAttributes redirectAttributes) {
+    public String processChangePassword (@RequestParam("oldPassword") String oldPassword,
+                                         @RequestParam("newPassword") String newPassword,
+                                         @RequestParam("confirmNewPassword") String confirmNewPassword,
+                                         RedirectAttributes redirectAttributes){
         if (!newPassword.equals(confirmNewPassword)) {
             redirectAttributes.addFlashAttribute("errorMessage", "New passwords do not match.");
             return "redirect:/change-password";
         }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-
-        boolean result = UserService.changePassword(username, oldPassword, newPassword);
-
-        if (result) {
-            redirectAttributes.addFlashAttribute("successMessage", "Password has been changed successfully.");
-        } else {
-            redirectAttributes.addFlashAttribute("errorMessage", "Old password is incorrect.");
-            return "redirect:/change-password";
-        }
-
-        return "redirect:/loginpage";
-    }
-}
-
+        return username;
     }
 }
