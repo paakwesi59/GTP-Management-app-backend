@@ -16,7 +16,7 @@ import java.util.UUID;
 
 
 @Service
-public class UserServiceImplementation implements UserService {
+public abstract class UserServiceImplementation implements UserService {
     @Autowired
     private UserRepository userRepository;
 
@@ -29,21 +29,6 @@ public class UserServiceImplementation implements UserService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public User inviteUser(String email, Role role) {
-        String temporaryPassword = UUID.randomUUID().toString().substring(0, 8); // Shorter temporary password
-
-        User user = new User();
-        user.setEmail(email);
-        user.setPassword(passwordEncoder.encode(temporaryPassword));
-        user.setRole(role);
-        user.setTemporaryPassword(true);
-
-        userRepository.save(user);
-
-        emailService.sendInvitationEmail(email, temporaryPassword);
-
-        return user;
-    }
 
     public Optional<Optional<User>> findUserByEmail(String email) {
         return Optional.ofNullable(userRepository.findByEmail(email));
