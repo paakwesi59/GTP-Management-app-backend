@@ -41,7 +41,9 @@ public class SecurityConfigure {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll())
-                .logout(logout -> logout.permitAll());
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .permitAll());
         return http.build();
     }
 
