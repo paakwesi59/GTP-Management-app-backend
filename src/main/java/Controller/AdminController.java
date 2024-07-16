@@ -29,7 +29,6 @@ public class AdminController {
             users.add(userServiceImplementation.inviteUser(email, role));
         }
         return users;
-
     }
 }
 

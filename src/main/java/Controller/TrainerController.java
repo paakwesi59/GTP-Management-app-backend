@@ -22,6 +22,6 @@ public class TrainerController {
 
     @PostMapping("/invite")
     public User inviteStudent(@RequestParam String email) {
-        return userServiceImplementation.inviteUser(email, Role.STUDENT);
+        return userServiceImplementation .inviteUser(email, Role.STUDENT);
     }
 }
