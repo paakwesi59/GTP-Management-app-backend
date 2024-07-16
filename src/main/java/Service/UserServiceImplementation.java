@@ -1,6 +1,5 @@
 package Service;
 
-import Model.Role;
 import Model.User;
 import Repo.UserRepository;
 import jakarta.mail.MessagingException;
