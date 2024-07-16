@@ -100,7 +100,7 @@ public class AuthenticationController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
 
-        boolean result = UserService.changePassword(email, oldPassword, newPassword);
+        boolean result = userService.changePassword(email, oldPassword, newPassword);
 
         if (result) {
             redirectAttributes.addFlashAttribute("successMessage", "Password has been changed successfully.");
