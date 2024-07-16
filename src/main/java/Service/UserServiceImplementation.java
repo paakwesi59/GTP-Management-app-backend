@@ -13,10 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.UUID;
 
-
-
 @Service
 public class UserServiceImplementation implements UserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -29,45 +28,48 @@ public class UserServiceImplementation implements UserService {
     @Autowired
     private JavaMailSender mailSender;
 
-
     public Optional<Optional<User>> findUserByEmail(String email) {
         return Optional.ofNullable(userRepository.findByEmail(email));
     }
 
     @Override
     public boolean existsByEmail(String email) {
-        return false;
+        return userRepository.existsByEmail(email);
     }
 
-    @Override
     public User findByUsername(String username) {
-        return null;
+        return userRepository.findByUsername(username);
     }
 
-    @Override
     public boolean validatePassword(User user, String password) {
-        return false;
+        return passwordEncoder.matches(password, user.getPassword());
     }
 
-    @Override
     public boolean processForgotPassword(String email) {
-        return false;
-    }
-
-    public boolean changePassword(String username, String oldPassword, String newPassword) {
+        // Implementation needed
         return false;
     }
 
     @Override
     public boolean checkPassword(Optional<User> user, String password) {
-        return false;
+        return user.isPresent() && passwordEncoder.matches(password, user.get().getPassword());
     }
-    // Other methods like updatePassword, authenticateUser, etc.
 
+    public boolean resetPassword(String token, String newPassword) {
+        Optional<User> userOptional = Optional.ofNullable(userRepository.findByResetToken(token));
+        if (!userOptional.isPresent() || userOptional.get().isResetTokenExpired()) {
+            return false; // Invalid or expired token
+        }
+        User user = userOptional.get();
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setResetToken(null); // Clear the reset token
+        user.setResetTokenExpiryDate(null); // Clear the token expiry date
 
+        userRepository.save(user);
+        return true;
+    }
 
-        // method for change password
-    public boolean changePassword1(String username, String oldPassword, String newPassword ) {
+    public boolean changePassword(String username, String oldPassword, String newPassword) {
         User user = userRepository.findByUsername(username);
         if (user == null || !passwordEncoder.matches(oldPassword, user.getPassword())) {
             return false;
@@ -78,9 +80,6 @@ public class UserServiceImplementation implements UserService {
 
         return true;
     }
-
-
-//reset password method
 
     public void sendResetToken(String email) throws MessagingException {
         Optional<User> userOpt = userRepository.findByEmail(email);
@@ -104,19 +103,5 @@ public class UserServiceImplementation implements UserService {
         helper.setText(content, true);
 
         mailSender.send(message);
-    }
-    @Override
-    public boolean resetPassword(String token, String newPassword) {
-        Optional<Model.User> userOptional = Optional.ofNullable(userRepository.findByResetToken(token));
-        if (!userOptional.isPresent() || userOptional.get().isResetTokenExpired()) {
-            return false; // Invalid or expired token
-        }
-        User user = userOptional.get();
-        user.setPassword(passwordEncoder.encode(newPassword));
-        user.setResetToken(null); // Clear the reset token
-        user.setResetTokenExpiryDate(null); // Clear the token expiry date
-
-        userRepository.save(user);
-        return true;
     }
 }
