@@ -9,6 +9,9 @@ public class GtpManagemetAppBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GtpManagemetAppBackendApplication.class, args);
 		System.out.println();
+
 	}
+
+
 
 }
