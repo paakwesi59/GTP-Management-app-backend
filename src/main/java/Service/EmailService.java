@@ -14,8 +14,7 @@ public class EmailService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
         message.setSubject("Invitation to join the platform");
-        String temporaryPassword = "";
-        message.setText("Your email: " + username + "\nYour temporary password: " + temporaryPassword);
+        message.setText("Your username: " + username + "\nYour temporary password: " );
         mailSender.send(message);
     }
 }

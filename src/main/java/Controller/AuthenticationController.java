@@ -1,7 +1,7 @@
 package Controller;
 
-import Model.User;
 import Service.UserService;
+import  Model.User;
 import Service.UserServiceImplementation;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -19,7 +18,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
-@Controller
 public class AuthenticationController {
 
     @Autowired
@@ -28,13 +26,11 @@ public class AuthenticationController {
     @Autowired
     private UserServiceImplementation userServiceImplementation;
 
-    // Display login form
     @GetMapping("/login")
     public String showLoginForm() {
         return "login";
     }
 
-    // Handle user login
     @PostMapping("/login")
     public String loginUser(@RequestParam String email, @RequestParam String password, Model model) {
         try {
@@ -59,7 +55,8 @@ public class AuthenticationController {
         return "login";
     }
 
-    // Handle forgot password
+    // Password reset beginning
+    // Method to handle password reset
     @PostMapping("/forgot")
     public ResponseEntity<?> forgotPassword(@RequestBody Map<String, String> request) {
         String email = request.get("email");
@@ -70,15 +67,16 @@ public class AuthenticationController {
         }
         return ResponseEntity.ok("Password reset link has been sent");
     }
-
-    // Handle password reset
     @PostMapping("/reset-password")
     public ResponseEntity<?> processResetPassword(@RequestBody ResetPasswordRequest request) {
         if (!request.getPassword().equals(request.getConfirmPassword())) {
             return ResponseEntity.badRequest().body(new ResetPasswordRequest.MessageResponse("Passwords do not match."));
+
         }
 
         boolean result = userService.resetPassword(request.getToken(), request.getPassword());
+
+
 
         if (result) {
             return ResponseEntity.ok(new ResetPasswordRequest.MessageResponse("Password has been reset successfully."));
@@ -86,39 +84,13 @@ public class AuthenticationController {
             return ResponseEntity.badRequest().body(new ResetPasswordRequest.MessageResponse("Invalid or expired token."));
         }
     }
-
-    // Handle change password
-    @PostMapping("/change-password")
-    public String processChangePassword(@RequestParam("oldPassword") String oldPassword,
-                                        @RequestParam("newPassword") String newPassword,
-                                        @RequestParam("confirmNewPassword") String confirmNewPassword,
-                                        RedirectAttributes redirectAttributes) {
-        if (!newPassword.equals(confirmNewPassword)) {
-            redirectAttributes.addFlashAttribute("errorMessage", "New passwords do not match.");
-            return "redirect:/change-password";
-        }
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-
-        boolean result = userService.changePassword(email, oldPassword, newPassword);
-
-        if (result) {
-            redirectAttributes.addFlashAttribute("successMessage", "Password has been changed successfully.");
-        } else {
-            redirectAttributes.addFlashAttribute("errorMessage", "Old password is incorrect.");
-            return "redirect:/change-password";
-        }
-
-        return "redirect:/loginpage";
-    }
-
-    // DTO classes
-    public static class ResetPasswordRequest {
+   //Dto classes
+    class ResetPasswordRequest {
         private String token;
         private String password;
         private String confirmPassword;
+        // getters and setters
 
-        // Getters and setters
         public String getToken() {
             return token;
         }
@@ -143,13 +115,14 @@ public class AuthenticationController {
             this.confirmPassword = confirmPassword;
         }
 
-        // Response message class
-        public static class MessageResponse {
+        static class MessageResponse {
             private String message;
 
             public MessageResponse(String message) {
                 this.message = message;
             }
+
+            // getter and setter
 
             public String getMessage() {
                 return message;
@@ -158,6 +131,36 @@ public class AuthenticationController {
             public void setMessage(String message) {
                 this.message = message;
             }
+
+    @GetMapping("/change-password")
+    public String showChangePasswordForm() {
+        return "change-password";
+    }
+
+    @PostMapping("/change-password")
+    public String processChangePassword(@RequestParam("oldPassword") String oldPassword,
+                                        @RequestParam("newPassword") String newPassword,
+                                        @RequestParam("confirmNewPassword") String confirmNewPassword,
+                                        RedirectAttributes redirectAttributes) {
+        if (!newPassword.equals(confirmNewPassword)) {
+            redirectAttributes.addFlashAttribute("errorMessage", "New passwords do not match.");
+            return "redirect:/change-password";
         }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+
+        boolean result = UserService.changePassword(email, oldPassword, newPassword);
+
+        if (result) {
+            redirectAttributes.addFlashAttribute("successMessage", "Password has been changed successfully.");
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Old password is incorrect.");
+            return "redirect:/change-password";
+        }
+
+        return "redirect:/loginpage";
+    }
+}
+
     }
 }
