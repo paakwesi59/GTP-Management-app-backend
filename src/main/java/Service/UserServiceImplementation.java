@@ -5,6 +5,7 @@ import Model.User;
 import Repo.UserRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -16,17 +17,15 @@ import java.util.UUID;
 
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImplementation implements UserService {
-    @Autowired
-    private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private EmailService emailService;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
+    private final EmailService emailService;
+
     private JavaMailSender mailSender;
 
     public User inviteUser(String email, Role role) throws MessagingException {
