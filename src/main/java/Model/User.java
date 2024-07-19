@@ -2,9 +2,14 @@ package Model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Document(collection = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     private String id;
@@ -41,8 +46,18 @@ public class User {
         this.email = email;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return "";
     }
 
     public void setPassword(String password) {
