@@ -29,7 +29,7 @@ public class UserServiceImplementation implements UserService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public User inviteUser(String email, Role role) {
+    public User inviteUser(String email, Role role) throws MessagingException {
         String temporaryPassword = UUID.randomUUID().toString().substring(0, 8); // Shorter temporary password
 
         User user = new User();

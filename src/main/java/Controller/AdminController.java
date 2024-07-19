@@ -4,29 +4,34 @@ import Model.Role;
 import Model.User;
 import Service.UserService;
 import Service.UserServiceImplementation;
+import jakarta.mail.MessagingException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("admin")
+@RequiredArgsConstructor
 public class AdminController {
 
-    @Autowired
-    private UserServiceImplementation userServiceImplementation;
+
+    private final UserService userService;
 
     @PostMapping("/invite")
-    public User inviteUser(@RequestParam String email, @RequestParam Role role) {
-        return userServiceImplementation.inviteUser(email, role);
+    public ResponseEntity<User> inviteUser(@RequestParam("email") String email, @RequestParam("role") Role role) throws MessagingException {
+        return new ResponseEntity<>(userService.inviteUser(email, role), HttpStatus.OK);
     }
 
     @PostMapping("/bulk-invite")
-    public List<User> inviteUsers(@RequestBody List<String> emails, @RequestParam Role role) {
+    public List<User> inviteUsers(@RequestBody List<String> emails, @RequestParam Role role) throws MessagingException {
         List<User> users = new ArrayList<>();
         for (String email : emails) {
-            users.add(userServiceImplementation.inviteUser(email, role));
+            users.add(userService.inviteUser(email, role));
         }
         return users;
     }
