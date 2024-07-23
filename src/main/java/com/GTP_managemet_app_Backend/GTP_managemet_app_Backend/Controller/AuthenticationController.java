@@ -4,6 +4,7 @@ import Service.UserService;
 import  Model.User;
 import Service.UserServiceImplementation;
 import jakarta.mail.MessagingException;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -18,13 +19,12 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
+@AllArgsConstructor
 public class AuthenticationController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private UserServiceImplementation userServiceImplementation;
+    private final UserServiceImplementation userServiceImplementation;
 
     @GetMapping("/login")
     public String showLoginForm() {
@@ -84,7 +84,7 @@ public class AuthenticationController {
             return ResponseEntity.badRequest().body(new ResetPasswordRequest.MessageResponse("Invalid or expired token."));
         }
     }
-   //Dto classes
+    //Dto classes
     class ResetPasswordRequest {
         private String token;
         private String password;
@@ -132,35 +132,35 @@ public class AuthenticationController {
                 this.message = message;
             }
 
-    @GetMapping("/change-password")
-    public String showChangePasswordForm() {
-        return "change-password";
-    }
+            @GetMapping("/change-password")
+            public String showChangePasswordForm() {
+                return "change-password";
+            }
 
-    @PostMapping("/change-password")
-    public String processChangePassword(@RequestParam("oldPassword") String oldPassword,
-                                        @RequestParam("newPassword") String newPassword,
-                                        @RequestParam("confirmNewPassword") String confirmNewPassword,
-                                        RedirectAttributes redirectAttributes) {
-        if (!newPassword.equals(confirmNewPassword)) {
-            redirectAttributes.addFlashAttribute("errorMessage", "New passwords do not match.");
-            return "redirect:/change-password";
+            @PostMapping("/change-password")
+            public String processChangePassword(@RequestParam("oldPassword") String oldPassword,
+                                                @RequestParam("newPassword") String newPassword,
+                                                @RequestParam("confirmNewPassword") String confirmNewPassword,
+                                                RedirectAttributes redirectAttributes) {
+                if (!newPassword.equals(confirmNewPassword)) {
+                    redirectAttributes.addFlashAttribute("errorMessage", "New passwords do not match.");
+                    return "redirect:/change-password";
+                }
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                String email = auth.getName();
+
+                boolean result = UserService.changePassword(email, oldPassword, newPassword);
+
+                if (result) {
+                    redirectAttributes.addFlashAttribute("successMessage", "Password has been changed successfully.");
+                } else {
+                    redirectAttributes.addFlashAttribute("errorMessage", "Old password is incorrect.");
+                    return "redirect:/change-password";
+                }
+
+                return "redirect:/loginpage";
+            }
         }
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-
-        boolean result = UserService.changePassword(email, oldPassword, newPassword);
-
-        if (result) {
-            redirectAttributes.addFlashAttribute("successMessage", "Password has been changed successfully.");
-        } else {
-            redirectAttributes.addFlashAttribute("errorMessage", "Old password is incorrect.");
-            return "redirect:/change-password";
-        }
-
-        return "redirect:/loginpage";
-    }
-}
 
     }
 }

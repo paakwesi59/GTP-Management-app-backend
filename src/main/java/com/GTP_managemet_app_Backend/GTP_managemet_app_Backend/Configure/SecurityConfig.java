@@ -81,8 +81,7 @@ import java.util.List;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    //    private final JwtAuthenticationFilter jwtAuthFilter;
-    private final UserDetailsServiceImpl userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -103,8 +102,8 @@ public class SecurityConfig {
                                 request
                                         .requestMatchers("/api/user/register","/api/user/login")
                                         .permitAll()
-                                        .requestMatchers("/api/user/**")
-                                        .hasAnyAuthority("USER", "ADMIN")
+                                        .requestMatchers("/admin/invite", "/admin/bulk-invite")
+                                        .hasAnyAuthority("TRAINER", "ADMIN","STUDENT")
                                         .anyRequest()
                                         .authenticated())
                 .sessionManagement(
