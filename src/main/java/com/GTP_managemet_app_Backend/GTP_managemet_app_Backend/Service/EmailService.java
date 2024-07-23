@@ -1,4 +1,4 @@
-package Service;
+package com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

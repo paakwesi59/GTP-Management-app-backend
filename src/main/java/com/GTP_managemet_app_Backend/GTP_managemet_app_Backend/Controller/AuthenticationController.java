@@ -1,11 +1,10 @@
-package Controller;
+package com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Controller;
 
-import Service.UserService;
-import  Model.User;
-import Service.UserServiceImplementation;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Service.UserService;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.User;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Service.UserServiceImplementation;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

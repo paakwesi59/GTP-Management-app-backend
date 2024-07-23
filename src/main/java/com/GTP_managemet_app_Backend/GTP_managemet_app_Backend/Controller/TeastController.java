@@ -1,4 +1,4 @@
-package Controller;
+package com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

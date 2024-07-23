@@ -1,4 +1,4 @@
-package Model;
+package com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
