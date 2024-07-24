@@ -1,6 +1,6 @@
-package Repo;
+package com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Repo;
 
-import Model.User;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
