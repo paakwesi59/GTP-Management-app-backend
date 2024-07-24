@@ -1,8 +1,7 @@
-package Exception;
+package com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Exception;
 
-import Dto.ErrorResponseDto;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Dto.ErrorResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

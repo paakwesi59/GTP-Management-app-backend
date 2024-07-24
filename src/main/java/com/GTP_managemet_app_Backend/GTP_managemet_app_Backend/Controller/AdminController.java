@@ -1,12 +1,10 @@
-package Controller;
+package com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Controller;
 
-import Model.Role;
-import Model.User;
-import Service.UserService;
-import Service.UserServiceImplementation;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.Role;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.User;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Service.UserService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("admin")
+@RequestMapping("/api/admin")
 @RequiredArgsConstructor
 public class AdminController {
 

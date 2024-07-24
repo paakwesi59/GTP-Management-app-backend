@@ -1,4 +1,4 @@
-package Dto;
+package com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

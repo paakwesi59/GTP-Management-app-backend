@@ -1,12 +1,11 @@
-package Service;
+package com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Service;
 
-import Model.Role;
-import Model.User;
-import Repo.UserRepository;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.Role;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.User;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Repo.UserRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -120,7 +119,7 @@ public class UserServiceImplementation implements UserService {
     }
     @Override
     public boolean resetPassword(String token, String newPassword) {
-        Optional<Model.User> userOptional = Optional.ofNullable(userRepository.findByResetToken(token));
+        Optional<User> userOptional = Optional.ofNullable(userRepository.findByResetToken(token));
         if (!userOptional.isPresent() || userOptional.get().isResetTokenExpired()) {
             return false; // Invalid or expired token
         }
