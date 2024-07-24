@@ -44,8 +44,9 @@ public class SecurityConfig {
                                 request
                                         .requestMatchers("/api/user/register", "/api/user/login")
                                         .permitAll()
-                                        .requestMatchers("/admin/invite", "/admin/bulk-invite")
-                                        .hasAnyAuthority("TRAINER", "ADMIN", "STUDENT")
+                                        .requestMatchers("/api/admin/invite/**", "/admin/bulk-invite")
+                                        .permitAll()
+                                       // .hasAnyAuthority("TRAINER", "ADMIN", "STUDENT")
                                         .anyRequest()
                                         .authenticated())
                 .sessionManagement(

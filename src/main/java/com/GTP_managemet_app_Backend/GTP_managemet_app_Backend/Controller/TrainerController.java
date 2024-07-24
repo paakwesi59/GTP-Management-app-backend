@@ -23,6 +23,6 @@ public class TrainerController {
 
     @PostMapping("/invite")
     public User inviteStudent(@RequestParam String email) throws MessagingException {
-        return userServiceImplementation .inviteUser(email, Role.STUDENT);
+        return userServiceImplementation .inviteUser(email, Role.TRAINEE);
     }
 }

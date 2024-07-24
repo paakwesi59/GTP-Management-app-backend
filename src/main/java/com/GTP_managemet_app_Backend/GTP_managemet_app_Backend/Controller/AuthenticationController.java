@@ -25,10 +25,6 @@ public class AuthenticationController {
 
     private final UserServiceImplementation userServiceImplementation;
 
-    @GetMapping("/login")
-    public String showLoginForm() {
-        return "login";
-    }
 
     @PostMapping("/login")
     public String loginUser(@RequestParam String email, @RequestParam String password, Model model) {
@@ -131,10 +127,6 @@ public class AuthenticationController {
                 this.message = message;
             }
 
-            @GetMapping("/change-password")
-            public String showChangePasswordForm() {
-                return "change-password";
-            }
 
             @PostMapping("/change-password")
             public String processChangePassword(@RequestParam("oldPassword") String oldPassword,
