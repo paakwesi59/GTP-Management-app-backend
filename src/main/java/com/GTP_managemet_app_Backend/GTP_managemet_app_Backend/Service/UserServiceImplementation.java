@@ -1,11 +1,11 @@
-package Service;
+package com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Service;
 
-import Model.Role;
-import Model.User;
-import Repo.UserRepository;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.Role;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.User;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Repo.UserRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,20 +16,18 @@ import java.util.UUID;
 
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImplementation implements UserService {
-    @Autowired
-    private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private EmailService emailService;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
+    private final EmailService emailService;
+
     private JavaMailSender mailSender;
 
-    public User inviteUser(String email, Role role) {
+    public User inviteUser(String email, Role role) throws MessagingException {
         String temporaryPassword = UUID.randomUUID().toString().substring(0, 8); // Shorter temporary password
 
         User user = new User();
@@ -121,7 +119,7 @@ public class UserServiceImplementation implements UserService {
     }
     @Override
     public boolean resetPassword(String token, String newPassword) {
-        Optional<Model.User> userOptional = Optional.ofNullable(userRepository.findByResetToken(token));
+        Optional<User> userOptional = Optional.ofNullable(userRepository.findByResetToken(token));
         if (!userOptional.isPresent() || userOptional.get().isResetTokenExpired()) {
             return false; // Invalid or expired token
         }

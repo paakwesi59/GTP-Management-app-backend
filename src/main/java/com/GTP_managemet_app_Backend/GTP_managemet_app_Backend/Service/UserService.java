@@ -1,6 +1,8 @@
-package Service;
+package com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Service;
 
-import Model.User;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.Role;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.User;
+import jakarta.mail.MessagingException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,4 +21,5 @@ public interface UserService {
     boolean checkPassword(Optional<User> user, String password);
 
     <T> Optional<Optional<User>> findUserByEmail(String email);
+    User inviteUser(String email, Role role) throws MessagingException;
 }
