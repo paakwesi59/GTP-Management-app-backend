@@ -1,4 +1,4 @@
-package com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Configure;
+package com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Configure;//package com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Configure;
 
 import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -42,17 +42,15 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         request ->
                                 request
-                                        .requestMatchers("/api/user/register", "/api/user/login")
+                                        .requestMatchers("/api/user/register", "/api/user/login", "/api/user/forgot-password", "/api/user/reset-password","/api/user/change-password")
                                         .permitAll()
                                         .requestMatchers("/api/admin/invite/**", "/admin/bulk-invite")
                                         .permitAll()
-                                       // .hasAnyAuthority("TRAINER", "ADMIN", "STUDENT")
                                         .anyRequest()
                                         .authenticated())
                 .sessionManagement(
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider());
-//                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
