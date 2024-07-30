@@ -12,9 +12,12 @@ public interface UserService {
     User inviteUser(String email, Role role) throws MessagingException;
     Optional<User> findUserByEmail(String email);
     boolean changePassword(String email, String oldPassword, String newPassword);
+//boolean changePassword(String oldPassword, String newPassword, String confirmPassword);
     void sendResetToken(String email) throws MessagingException;
     boolean resetPassword(String token, String newPassword);
     boolean login(String email, String password);
     boolean isFirstTimeLogin(String email);
+
+    void confirmAccount(String email) throws MessagingException;
 }
 

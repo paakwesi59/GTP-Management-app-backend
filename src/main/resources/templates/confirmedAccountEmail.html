@@ -1,5 +1,6 @@
+
 <!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
 <!--<head>-->
 <!--    <meta charset="UTF-8">-->
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
@@ -11,13 +12,13 @@
 <!--<main class="confirmation">-->
 <!--    &lt;!&ndash; Header section of the page &ndash;&gt;-->
 <!--    <header>-->
-<!--        <div><img src="./Amalitech logo.png" alt=""></div>-->
+<!--        <div><img src="Amalitech logo.png" alt=""></div>-->
 <!--    </header>-->
 
 <!--    &lt;!&ndash; Main content of the page &ndash;&gt;-->
 <!--    <section>-->
 <!--        <p>Subject: Account Confirmation</p>-->
-<!--        <p>Dear [ Recipient Name]</p>-->
+<!--        <p>Dear [[${recipientName}]],</p>-->
 <!--        <p>Congratulations! We are pleased to inform you that your account has been successfully verified. You can now enjoy full access to all the features and benefits our platform offers.</p>-->
 <!--        <p>Thank you for choosing to be a part of our community. If you have any questions or need assistance, please don't hesitate to reach out to our support team. We're here to help!</p>-->
 <!--        <p>For support, reach us at:<br>-->
@@ -26,19 +27,19 @@
 <!--        <p>Thank you for joining AmaliTech.</p>-->
 <!--        <p>Best regards,<br>-->
 <!--            AmaliTech team</p>-->
-<!--        <p>This email was sent to [Recipient Email]. If you'd rather not receive this kind of email, you can <a href="#">unsubscribe</a> or <a href="#">manage your email preferences</a>.</p>-->
+<!--        <p>This email was sent to [[${recipientEmail}]]. If you'd rather not receive this kind of email, you can <a href="#">unsubscribe</a> or <a href="#">manage your email preferences</a>.</p>-->
 <!--        <p>&#169 2023 AmaliTech</p>-->
 <!--    </section>-->
 
 <!--    &lt;!&ndash; Footer section of the page &ndash;&gt;-->
 <!--    <footer class="footer">-->
 <!--        <div class="foot-logo">-->
-<!--            <img src="./Amalitech logo.png" alt="">-->
+<!--            <img src="Amalitech logo.png" alt="">-->
 <!--        </div>-->
 <!--        <div class="icons">-->
-<!--            <a href="#"><img src="./icon-facebook.svg" alt=""></a>-->
-<!--            <a href="#"><img src="./icon-twitter.svg" alt=""></a>-->
-<!--            <a href="#"><img src="./icon-instagram.svg" alt=""></a>-->
+<!--            <a href="#"><img src="icon-facebook.svg" alt=""></a>-->
+<!--            <a href="#"><img src="icon-twitter.svg" alt=""></a>-->
+<!--            <a href="#"><img src="icon-instagram.svg" alt=""></a>-->
 <!--        </div>-->
 <!--    </footer>-->
 <!--</main>-->

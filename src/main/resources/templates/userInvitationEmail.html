@@ -1,5 +1,6 @@
+
 <!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
 <!--<head>-->
 <!--    <meta charset="UTF-8">-->
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
@@ -11,16 +12,16 @@
 <!--<main class="invitation">-->
 <!--    &lt;!&ndash; Header section of the page &ndash;&gt;-->
 <!--    <header>-->
-<!--        <div><img src="./Amalitech logo.png" alt=""></div>-->
+<!--        <div><img src="Amalitech logo.png" alt=""></div>-->
 <!--    </header>-->
 
 <!--    &lt;!&ndash; Main content of the page &ndash;&gt;-->
 <!--    <section>-->
 <!--        <p>Subject: Invitation to AmaliTech Training System</p>-->
-<!--        <p>Dear [Recipient Name],</p>-->
+<!--        <p>Dear [[${recipientName}]],</p>-->
 <!--        <p>You're invited to join our AmaliTech Training System. Please find your login details below:</p>-->
-<!--        <p>Email: [Recipient Email]<br>-->
-<!--            Temporary Password: [Temporary Password]</p>-->
+<!--        <p>Email: [[${recipientEmail}]]<br>-->
+<!--            Temporary Password: [[${temporaryPassword}]]</p>-->
 <!--        <p>To log in to the system, visit our login page: <a href="https://www.amalitech.com/login">www.amalitech.com/login</a></p>-->
 <!--        <p>Once logged in, you will be redirected to reset your password and then after, you can check documents, generate reports, and contribute to maintaining academic integrity.</p>-->
 <!--        <p>For support, reach us at:<br>-->
@@ -29,25 +30,73 @@
 <!--        <p>Thank you for joining us in upholding academic excellence.</p>-->
 <!--        <p>Best regards,<br>-->
 <!--            AmaliTech team</p>-->
-<!--        <p>This email was sent to [Recipient Email]. If you'd rather not receive this kind of email, you can <a href="#">unsubscribe</a> or <a href="#">manage your email preferences</a>.</p>-->
+<!--        <p>This email was sent to [[${recipientEmail}]]. If you'd rather not receive this kind of email, you can <a href="#">unsubscribe</a> or <a href="#">manage your email preferences</a>.</p>-->
 <!--        <p>&#169 2023 Plagicheck, AmaliTech</p>-->
 <!--    </section>-->
 
 <!--    &lt;!&ndash; Footer section of the page &ndash;&gt;-->
 <!--    <footer class="footer">-->
 <!--        <div class="foot-logo">-->
-<!--            <img src="./Amalitech logo.png" alt="">-->
+<!--            <img src="Amalitech logo.png" alt="">-->
 <!--        </div>-->
 <!--        <div class="icons">-->
-<!--            <a href="#"><img src="./icon-facebook.svg" alt=""></a>-->
-<!--            <a href="#"><img src="./icon-twitter.svg" alt=""></a>-->
-<!--            <a href="#"><img src="./icon-instagram.svg" alt=""></a>-->
+<!--            <a href="#"><img src="icon-facebook.svg" alt=""></a>-->
+<!--            <a href="#"><img src="icon-twitter.svg" alt=""></a>-->
+<!--            <a href="#"><img src="icon-instagram.svg" alt=""></a>-->
 <!--        </div>-->
 <!--    </footer>-->
 <!--</main>-->
 <!--</body>-->
 <!--</html>-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Invitation Email</title>-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>-->
+<!--    <link rel="stylesheet" href="style.css">-->
+<!--</head>-->
+<!--<body>-->
+<!--<main class="invitation">-->
+<!--    &lt;!&ndash; Header section of the page &ndash;&gt;-->
+<!--    <header>-->
+<!--        <div><img src="Amalitech logo.png" alt=""></div>-->
+<!--    </header>-->
 
+<!--    &lt;!&ndash; Main content of the page &ndash;&gt;-->
+<!--    <section>-->
+<!--        <p>Subject: Invitation to AmaliTech Training System</p>-->
+<!--        <p>Dear [[${recipientName}]],</p>-->
+<!--        <p>You're invited to join our AmaliTech Training System. Please find your login details below:</p>-->
+<!--        <p>Email: [[${recipientEmail}]]<br>-->
+<!--            Temporary Password: [[${temporaryPassword}]]</p>-->
+<!--        <p>To log in to the system, visit our login page: <a href="https://www.amalitech.com/login">www.amalitech.com/login</a></p>-->
+<!--        <p>Once logged in, you will be redirected to reset your password and then after, you can check documents, generate reports, and contribute to maintaining academic integrity.</p>-->
+<!--        <p>For support, reach us at:<br>-->
+<!--            Email: <a href="mailto:support@amalitech.com">support@amalitech.com</a><br>-->
+<!--            Phone: +1 (123) 456-7890</p>-->
+<!--        <p>Thank you for joining us in upholding academic excellence.</p>-->
+<!--        <p>Best regards,<br>-->
+<!--            AmaliTech team</p>-->
+<!--        <p>This email was sent to [[${recipientEmail}]]. If you'd rather not receive this kind of email, you can <a href="#">unsubscribe</a> or <a href="#">manage your email preferences</a>.</p>-->
+<!--        <p>&#169 2023 Plagicheck, AmaliTech</p>-->
+<!--    </section>-->
+
+<!--    &lt;!&ndash; Footer section of the page &ndash;&gt;-->
+<!--    <footer class="footer">-->
+<!--        <div class="foot-logo">-->
+<!--            <img src="Amalitech logo.png" alt="">-->
+<!--        </div>-->
+<!--        <div class="icons">-->
+<!--            <a href="#"><img src="icon-facebook.svg" alt=""></a>-->
+<!--            <a href="#"><img src="icon-twitter.svg" alt=""></a>-->
+<!--            <a href="#"><img src="icon-instagram.svg" alt=""></a>-->
+<!--        </div>-->
+<!--    </footer>-->
+<!--</main>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -72,7 +121,9 @@
         <p>Email: [[${recipientEmail}]]<br>
             Temporary Password: [[${temporaryPassword}]]</p>
         <p>To log in to the system, visit our login page: <a href="https://www.amalitech.com/login">www.amalitech.com/login</a></p>
-        <p>Once logged in, you will be redirected to reset your password and then after, you can check documents, generate reports, and contribute to maintaining academic integrity.</p>
+        <p>Once logged in, you will be redirected to reset your password. To reset your password manually, use the link below:</p>
+        <p><a href="[[${passwordChangeLink}]]">Change Password: </a>[[${passwordChangeLink}]]</p>
+        <p>After resetting your password, you can check documents, generate reports, and contribute to maintaining academic integrity.</p>
         <p>For support, reach us at:<br>
             Email: <a href="mailto:support@amalitech.com">support@amalitech.com</a><br>
             Phone: +1 (123) 456-7890</p>
