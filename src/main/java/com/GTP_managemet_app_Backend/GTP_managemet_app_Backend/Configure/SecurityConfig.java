@@ -44,7 +44,7 @@ public class SecurityConfig {
                                 request
                                         .requestMatchers("/api/user/register", "/api/user/login", "/api/user/forgot-password", "/api/user/reset-password","/api/user/change-password")
                                         .permitAll()
-                                        .requestMatchers("/api/admin/invite/**", "/admin/bulk-invite")
+                                        .requestMatchers("/api/admin/invite/**", "/api/admin/bulk-invite","/api/trainer/invite")
                                         .permitAll()
                                         .anyRequest()
                                         .authenticated())
