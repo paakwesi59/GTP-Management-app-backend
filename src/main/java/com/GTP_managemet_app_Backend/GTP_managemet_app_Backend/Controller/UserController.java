@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
@@ -40,7 +41,7 @@ public class UserController {
 
                 return ResponseEntity.ok()
                         .header("Location", getRedirectURL(user.getRole()))
-                        .body(Map.of("accessToken", accessToken, "refreshToken", refreshToken,"user", user.getRole()))    ;
+                        .body(Map.of("accessToken", accessToken, "refreshToken", refreshToken, "user", user.getRole()));
             }
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password.");
@@ -60,33 +61,23 @@ public class UserController {
         }
     }
 
-//    @PostMapping("/change-password")
-//    public ResponseEntity<?> changePassword(@RequestParam String email, @RequestParam String oldPassword, @RequestParam String newPassword) {
-//        try {
-//            boolean result = userService.changePassword(email, oldPassword, newPassword);
-//            if (result) {
-//                return ResponseEntity.ok("Password changed successfully.");
-//            } else {
-//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid old password or user not found.");
-//            }
-//        } catch (IllegalArgumentException e) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-//        }
-//    }
-@PostMapping("/change-password")
-public ResponseEntity<?> changePassword(@RequestParam String email, @RequestParam String oldPassword, @RequestParam String newPassword) {
-    try {
-        boolean result = userService.changePassword(email, oldPassword, newPassword);
-        if (result) {
-            return ResponseEntity.ok("Password changed successfully.");
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid old password or user not found.");
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(
+            @RequestParam String email,
+            @RequestParam String oldPassword,
+            @RequestParam String newPassword,
+            @RequestParam String confirmPassword) {
+        try {
+            boolean result = userService.changePassword(email, oldPassword, newPassword, confirmPassword);
+            if (result) {
+                return ResponseEntity.ok("Password changed successfully.");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid old password or user not found.");
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-    } catch (IllegalArgumentException e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
-}
-
 
     @PostMapping("/forgot-password")
     public ResponseEntity<?> forgotPassword(@RequestParam String email) throws MessagingException {
@@ -95,13 +86,19 @@ public ResponseEntity<?> changePassword(@RequestParam String email, @RequestPara
     }
 
     @PostMapping("/reset-password")
-    public ResponseEntity<?> resetPassword(@RequestParam String token, @RequestParam String newPassword) {
-        boolean result = userService.resetPassword(token, newPassword);
-        if (result) {
-            return ResponseEntity.ok("Password reset successfully.");
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid or expired token.");
+    public ResponseEntity<?> resetPassword(
+            @RequestParam String token,
+            @RequestParam String newPassword,
+            @RequestParam String confirmPassword) {
+        try {
+            boolean result = userService.resetPassword(token, newPassword, confirmPassword);
+            if (result) {
+                return ResponseEntity.ok("Password reset successfully.");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid or expired token.");
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
-
 }
