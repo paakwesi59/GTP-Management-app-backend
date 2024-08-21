@@ -43,36 +43,3 @@ public class AdminController {
         }
     }
 }
-
-
-//@RestController
-//@RequestMapping("/api/admin")
-//@RequiredArgsConstructor
-//public class AdminController {
-//
-//    private final UserService userService;
-//
-//    @PostMapping("/invite")
-//    public ResponseEntity<?> inviteUser(@RequestParam("email") String email, @RequestParam("role") Role role) {
-//        try {
-//            User invitedUser = userService.inviteUser(email, role);
-//            return new ResponseEntity<>(invitedUser, HttpStatus.OK);
-//        } catch (IllegalArgumentException e) {
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-//        } catch (MessagingException e) {
-//            return new ResponseEntity<>("Failed to send invitation email.", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
-//
-//    @PostMapping("/bulk-invite")
-//    public ResponseEntity<?> inviteUsers(@RequestBody List<UserInviteRequest> userInviteRequests) {
-//        try {
-//            List<User> invitedUsers = userService.inviteUsers(userInviteRequests);
-//            return new ResponseEntity<>(invitedUsers, HttpStatus.OK);
-//        } catch (IllegalArgumentException e) {
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-//        } catch (MessagingException e) {
-//            return new ResponseEntity<>("Failed to send one or more invitation emails.", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
-//}
