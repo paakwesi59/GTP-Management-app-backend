@@ -32,6 +32,7 @@ public class UserServiceImplementation implements UserService {
     // Define the password pattern
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$");
 
+    // Inviting user to the platform
     @Override
     public User inviteUser(String name, String email, Role role) throws MessagingException {
         // Check if email already exists
@@ -40,6 +41,7 @@ public class UserServiceImplementation implements UserService {
             throw new IllegalArgumentException("Email already exists: " + email);
         }
 
+        // Generate a temporary password for user
         String temporaryPassword = generateTemporaryPassword();
         User user = new User();
         user.setName(name);
@@ -55,6 +57,7 @@ public class UserServiceImplementation implements UserService {
         return user;
     }
 
+    // Inviting bilk users to the platform
     @Override
     public List<User> inviteUsers(List<UserInviteRequest> userInviteRequests) throws MessagingException {
         List<User> invitedUsers = new ArrayList<>();
@@ -67,6 +70,7 @@ public class UserServiceImplementation implements UserService {
                 continue;  // Skip this user if already exists
             }
 
+            // Generate a temporary password for user
             String temporaryPassword = generateTemporaryPassword();
             User user = new User();
             user.setName(request.getName());
@@ -84,6 +88,7 @@ public class UserServiceImplementation implements UserService {
             invitedUsers.add(user);
         }
 
+        // Check if email already exists
         if (!duplicateEmails.isEmpty()) {
             throw new IllegalArgumentException("Duplicate emails found: " + String.join(", ", duplicateEmails));
         }
@@ -96,6 +101,7 @@ public class UserServiceImplementation implements UserService {
         return userRepository.findByEmail(email);
     }
 
+    // Change password method
     @Override
     public boolean changePassword(String email, String oldPassword, String newPassword, String confirmPassword) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
@@ -133,6 +139,7 @@ public class UserServiceImplementation implements UserService {
     }
 
 
+    // Reset Password method
     @Override
     public boolean resetPassword(String token, String newPassword, String confirmPassword) {
         Optional<User> userOptional = Optional.ofNullable(userRepository.findByResetToken(token));
@@ -156,6 +163,7 @@ public class UserServiceImplementation implements UserService {
         return true;
     }
 
+    // Login method
     @Override
     public boolean login(String email, String password) {
         Optional<User> userOptional = userRepository.findByEmail(email);
@@ -175,6 +183,7 @@ public class UserServiceImplementation implements UserService {
         return matches;
     }
 
+    // Check if it's a first login
     @Override
     public boolean isFirstTimeLogin(String email) {
         Optional<User> userOptional = userRepository.findByEmail(email);
