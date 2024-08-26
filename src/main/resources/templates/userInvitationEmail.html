@@ -1,102 +1,3 @@
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--    <title>Invitation Email</title>-->
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>-->
-<!--    <link rel="stylesheet" href="style.css">-->
-<!--</head>-->
-<!--<body>-->
-<!--<main class="invitation">-->
-<!--    &lt;!&ndash; Header section of the page &ndash;&gt;-->
-<!--    <header>-->
-<!--        <div><img src="Amalitech logo.png" alt=""></div>-->
-<!--    </header>-->
-
-<!--    &lt;!&ndash; Main content of the page &ndash;&gt;-->
-<!--    <section>-->
-<!--        <p>Subject: Invitation to AmaliTech Training System</p>-->
-<!--        <p>Dear [[${recipientName}]],</p>-->
-<!--        <p>You're invited to join our AmaliTech Training System. Please find your login details below:</p>-->
-<!--        <p>Email: [[${recipientEmail}]]<br>-->
-<!--            Temporary Password: [[${temporaryPassword}]]</p>-->
-<!--        <p>To log in to the system, visit our login page: <a href="https://www.amalitech.com/login">www.amalitech.com/login</a></p>-->
-<!--        <p>Once logged in, you will be redirected to reset your password and then after, you can check documents, generate reports, and contribute to maintaining academic integrity.</p>-->
-<!--        <p>For support, reach us at:<br>-->
-<!--            Email: <a href="mailto:support@amalitech.com">support@amalitech.com</a><br>-->
-<!--            Phone: +1 (123) 456-7890</p>-->
-<!--        <p>Thank you for joining us in upholding academic excellence.</p>-->
-<!--        <p>Best regards,<br>-->
-<!--            AmaliTech team</p>-->
-<!--        <p>This email was sent to [[${recipientEmail}]]. If you'd rather not receive this kind of email, you can <a href="#">unsubscribe</a> or <a href="#">manage your email preferences</a>.</p>-->
-<!--        <p>&#169 2023 Plagicheck, AmaliTech</p>-->
-<!--    </section>-->
-
-<!--    &lt;!&ndash; Footer section of the page &ndash;&gt;-->
-<!--    <footer class="footer">-->
-<!--        <div class="foot-logo">-->
-<!--            <img src="Amalitech logo.png" alt="">-->
-<!--        </div>-->
-<!--        <div class="icons">-->
-<!--            <a href="#"><img src="icon-facebook.svg" alt=""></a>-->
-<!--            <a href="#"><img src="icon-twitter.svg" alt=""></a>-->
-<!--            <a href="#"><img src="icon-instagram.svg" alt=""></a>-->
-<!--        </div>-->
-<!--    </footer>-->
-<!--</main>-->
-<!--</body>-->
-<!--</html>-->
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--    <title>Invitation Email</title>-->
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>-->
-<!--    <link rel="stylesheet" href="style.css">-->
-<!--</head>-->
-<!--<body>-->
-<!--<main class="invitation">-->
-<!--    &lt;!&ndash; Header section of the page &ndash;&gt;-->
-<!--    <header>-->
-<!--        <div><img src="Amalitech logo.png" alt=""></div>-->
-<!--    </header>-->
-
-<!--    &lt;!&ndash; Main content of the page &ndash;&gt;-->
-<!--    <section>-->
-<!--        <p>Subject: Invitation to AmaliTech Training System</p>-->
-<!--        <p>Dear [[${recipientName}]],</p>-->
-<!--        <p>You're invited to join our AmaliTech Training System. Please find your login details below:</p>-->
-<!--        <p>Email: [[${recipientEmail}]]<br>-->
-<!--            Temporary Password: [[${temporaryPassword}]]</p>-->
-<!--        <p>To log in to the system, visit our login page: <a href="https://www.amalitech.com/login">www.amalitech.com/login</a></p>-->
-<!--        <p>Once logged in, you will be redirected to reset your password and then after, you can check documents, generate reports, and contribute to maintaining academic integrity.</p>-->
-<!--        <p>For support, reach us at:<br>-->
-<!--            Email: <a href="mailto:support@amalitech.com">support@amalitech.com</a><br>-->
-<!--            Phone: +1 (123) 456-7890</p>-->
-<!--        <p>Thank you for joining us in upholding academic excellence.</p>-->
-<!--        <p>Best regards,<br>-->
-<!--            AmaliTech team</p>-->
-<!--        <p>This email was sent to [[${recipientEmail}]]. If you'd rather not receive this kind of email, you can <a href="#">unsubscribe</a> or <a href="#">manage your email preferences</a>.</p>-->
-<!--        <p>&#169 2023 Plagicheck, AmaliTech</p>-->
-<!--    </section>-->
-
-<!--    &lt;!&ndash; Footer section of the page &ndash;&gt;-->
-<!--    <footer class="footer">-->
-<!--        <div class="foot-logo">-->
-<!--            <img src="Amalitech logo.png" alt="">-->
-<!--        </div>-->
-<!--        <div class="icons">-->
-<!--            <a href="#"><img src="icon-facebook.svg" alt=""></a>-->
-<!--            <a href="#"><img src="icon-twitter.svg" alt=""></a>-->
-<!--            <a href="#"><img src="icon-instagram.svg" alt=""></a>-->
-<!--        </div>-->
-<!--    </footer>-->
-<!--</main>-->
-<!--</body>-->
-<!--</html>-->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -104,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitation Email</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
 <main class="invitation">
     <!-- Header section of the page -->
     <header>
-        <div><img src="Amalitech logo.png" alt=""></div>
+        <div><img src="../static/images/Amalitech_logo.png"/></div>
     </header>
 
     <!-- Main content of the page -->
@@ -137,14 +38,111 @@
     <!-- Footer section of the page -->
     <footer class="footer">
         <div class="foot-logo">
-            <img src="Amalitech logo.png" alt="">
+            <img src="../static/images/Amalitech_logo.png"/>
         </div>
         <div class="icons">
-            <a href="#"><img src="icon-facebook.svg" alt=""></a>
-            <a href="#"><img src="icon-twitter.svg" alt=""></a>
-            <a href="#"><img src="icon-instagram.svg" alt=""></a>
+            <a href="#"><img src="../static/images/icon-facebook.svg" alt=""></a>
+            <a href="#"><img src="../static/images/icon-twitter.svg" alt=""></a>
+            <a href="#"><img src="../static/images/icon-instagram.svg" alt=""></a>
         </div>
     </footer>
 </main>
 </body>
 </html>
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Invitation Email</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: 'Roboto', sans-serif;-->
+<!--            font-size: 20px;-->
+<!--            line-height: 22px;-->
+<!--            color: #667085;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            background-color: #FFFFFF;-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            min-height: 100vh;-->
+<!--        }-->
+<!--        main {-->
+<!--            width: 100%;-->
+<!--            max-width: 629px;-->
+<!--            margin: 4% auto;-->
+<!--            padding: 1rem;-->
+<!--            background-color: #F9FAFB;-->
+<!--            border-radius: 15px;-->
+<!--        }-->
+<!--        header img {-->
+<!--            max-width: 100%;-->
+<!--            height: auto;-->
+<!--        }-->
+<!--        section p {-->
+<!--            margin-bottom: 1rem;-->
+<!--        }-->
+<!--        a {-->
+<!--            color: #667085;-->
+<!--            text-decoration: underline;-->
+<!--        }-->
+<!--        footer {-->
+<!--            width: 100%;-->
+<!--            display: flex;-->
+<!--            justify-content: space-between;-->
+<!--            align-items: center;-->
+<!--        }-->
+<!--        .foot-logo img {-->
+<!--            max-width: 100%;-->
+<!--            height: auto;-->
+<!--        }-->
+<!--        .icons a img {-->
+<!--            width: 24px;-->
+<!--            height: 24px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<main>-->
+<!--    &lt;!&ndash; Header section of the page &ndash;&gt;-->
+<!--    <header>-->
+<!--        <div><img src="../static/images/Amalitech_logo.png" alt="AmaliTech Logo"/></div>-->
+<!--    </header>-->
+
+<!--    &lt;!&ndash; Main content of the page &ndash;&gt;-->
+<!--    <section>-->
+<!--        <p>Subject: Invitation to AmaliTech Training System</p>-->
+<!--        <p>Dear [[${recipientName}]],</p>-->
+<!--        <p>You're invited to join our AmaliTech Training System. Please find your login details below:</p>-->
+<!--        <p>Email: [[${recipientEmail}]]<br>-->
+<!--            Temporary Password: [[${temporaryPassword}]]</p>-->
+<!--        <p>To log in to the system, visit our login page: <a href="https://www.amalitech.com/login">www.amalitech.com/login</a></p>-->
+<!--        <p>Once logged in, you will be redirected to reset your password. To reset your password manually, use the link below:</p>-->
+<!--        <p><a href="[[${passwordChangeLink}]]">Change Password: </a>[[${passwordChangeLink}]]</p>-->
+<!--        <p>After resetting your password, you can check documents, generate reports, and contribute to maintaining academic integrity.</p>-->
+<!--        <p>For support, reach us at:<br>-->
+<!--            Email: <a href="mailto:support@amalitech.com">support@amalitech.com</a><br>-->
+<!--            Phone: +1 (123) 456-7890</p>-->
+<!--        <p>Thank you for joining us in upholding academic excellence.</p>-->
+<!--        <p>Best regards,<br>-->
+<!--            AmaliTech team</p>-->
+<!--        <p>This email was sent to [[${recipientEmail}]]. If you'd rather not receive this kind of email, you can <a href="#">unsubscribe</a> or <a href="#">manage your email preferences</a>.</p>-->
+<!--        <p>&#169 2023 Plagicheck, AmaliTech</p>-->
+<!--    </section>-->
+
+<!--    &lt;!&ndash; Footer section of the page &ndash;&gt;-->
+<!--    <footer>-->
+<!--        <div class="foot-logo">-->
+<!--            <img src="../static/images/Amalitech_logo.png" alt="AmaliTech Logo"/>-->
+<!--        </div>-->
+<!--        <div class="icons">-->
+<!--            <a href="#"><img src="../static/images/icon-facebook.svg" alt="Facebook Icon"></a>-->
+<!--            <a href="#"><img src="../static/images/icon-twitter.svg" alt="Twitter Icon"></a>-->
+<!--            <a href="#"><img src="../static/images/icon-instagram.svg" alt="Instagram Icon"></a>-->
+<!--        </div>-->
+<!--    </footer>-->
+<!--</main>-->
+<!--</body>-->
+<!--</html>-->
