@@ -28,8 +28,9 @@ public class User implements UserDetails {
     private String accessToken;
     private String refreshToken;
     private String passwordChangeLink;
+    private Specialization specialization;
 
-    public User(String id, String email, String password, boolean temporaryPassword, Role role, String resetToken, Instant tokenExpiryDate, String name, boolean confirmed, String accessToken, String refreshToken, String passwordChangeLink) {
+    public User(String id, String email, String password, boolean temporaryPassword, Role role, String resetToken, Instant tokenExpiryDate, String name, boolean confirmed, String accessToken, String refreshToken, String passwordChangeLink, Specialization specialization) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -42,6 +43,7 @@ public class User implements UserDetails {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         this.passwordChangeLink = passwordChangeLink;
+        this.specialization = specialization;
     }
 
     public User() {
@@ -172,6 +174,14 @@ public class User implements UserDetails {
 
     public void setPasswordChangeLink(String passwordChangeLink) {
         this.passwordChangeLink = passwordChangeLink;
+    }
+
+    public Specialization getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(Specialization specialization) {
+        this.specialization = specialization;
     }
 
     public boolean isResetTokenExpired() {
