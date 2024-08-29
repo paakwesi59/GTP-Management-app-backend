@@ -1,6 +1,7 @@
 package com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Controller;
 
 import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.Role;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.Specialization;
 import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.User;
 import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.UserInviteRequest;
 import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Service.UserService;
@@ -20,9 +21,9 @@ public class AdminController {
     private final UserService userService;
 
     @PostMapping("/invite")
-    public ResponseEntity<?> inviteUser(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("role") Role role) {
+    public ResponseEntity<?> inviteUser(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("role") Role role, @RequestParam("specialization") Specialization specialization) {
         try {
-            User invitedUser = userService.inviteUser(name, email, role);
+            User invitedUser = userService.inviteUser(name, email, role, specialization);
             return new ResponseEntity<>(invitedUser, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

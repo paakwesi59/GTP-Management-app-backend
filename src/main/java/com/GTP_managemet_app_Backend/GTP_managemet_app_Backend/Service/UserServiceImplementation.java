@@ -2,6 +2,7 @@ package com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Service;
 
 import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Configure.JwtTokenUtil;
 import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.Role;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.Specialization;
 import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.User;
 import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.UserInviteRequest;
 import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Repo.UserRepository;
@@ -34,7 +35,7 @@ public class UserServiceImplementation implements UserService {
 
     // Inviting user to the platform
     @Override
-    public User inviteUser(String name, String email, Role role) throws MessagingException {
+    public User inviteUser(String name, String email, Role role, Specialization specialization) throws MessagingException {
         // Check if email already exists
         Optional<User> existingUser = findUserByEmail(email);
         if (existingUser.isPresent()) {
@@ -48,6 +49,7 @@ public class UserServiceImplementation implements UserService {
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(temporaryPassword));
         user.setRole(role);
+        user.setSpecialization(specialization);
         user.setTemporaryPassword(true);
         user.setConfirmed(false);
         String passwordChangeLink = "http://localhost:8080/api/user/change-password?token=" + UUID.randomUUID().toString();
@@ -77,6 +79,7 @@ public class UserServiceImplementation implements UserService {
             user.setEmail(request.getEmail());
             user.setPassword(passwordEncoder.encode(temporaryPassword));
             user.setRole(request.getRole());
+            user.setSpecialization(request.getSpecialization());
             user.setTemporaryPassword(true);
             user.setConfirmed(false);
             String passwordChangeLink = "http://localhost:8080/api/user/change-password?token=" + UUID.randomUUID().toString();
