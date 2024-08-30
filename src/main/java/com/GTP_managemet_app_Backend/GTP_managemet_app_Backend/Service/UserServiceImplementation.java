@@ -15,11 +15,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -59,7 +57,7 @@ public class UserServiceImplementation implements UserService {
         return user;
     }
 
-    // Inviting bilk users to the platform
+    // Inviting bulk users to the platform
     @Override
     public List<User> inviteUsers(List<UserInviteRequest> userInviteRequests) throws MessagingException {
         List<User> invitedUsers = new ArrayList<>();
@@ -210,5 +208,23 @@ public class UserServiceImplementation implements UserService {
 
     private String generateTemporaryPassword() {
         return RandomStringUtils.random(8, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&+=!");
+    }
+
+    @Override
+    public Map<String, Long> getTrainerToTraineeRatio() {
+        long trainerCount = userRepository.countByRole(Role.TRAINER);
+        long traineeCount = userRepository.countByRole(Role.TRAINEE);
+
+        return Map.of("trainers", trainerCount, "trainees", traineeCount);
+    }
+
+    @Override
+    public Map<String, Long> getSpecializationCount() {
+        return userRepository.findAll()
+                .stream()
+                .collect(Collectors.groupingBy(
+                        user -> user.getSpecialization().toString(), // Convert Specialization to String
+                        Collectors.counting()
+                ));
     }
 }

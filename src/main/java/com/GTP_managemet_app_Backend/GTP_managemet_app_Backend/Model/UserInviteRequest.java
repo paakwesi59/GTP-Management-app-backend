@@ -6,7 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class UserInviteRequest {
-    // Getters and setters
+
     private String email;
     private Role role;
     private String name;
