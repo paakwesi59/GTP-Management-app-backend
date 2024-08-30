@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -42,5 +43,17 @@ public class AdminController {
         } catch (MessagingException e) {
             return new ResponseEntity<>("Failed to send one or more invitation emails.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/ratio")
+    public ResponseEntity<Map<String, Long>> getTrainerToTraineeRatio() {
+        Map<String, Long> ratio = userService.getTrainerToTraineeRatio();
+        return ResponseEntity.ok(ratio);
+    }
+
+    @GetMapping("/specializations")
+    public ResponseEntity<Map<String, Long>> getSpecializationCount() {
+        Map<String, Long> specializationCount = userService.getSpecializationCount();
+        return ResponseEntity.ok(specializationCount);
     }
 }

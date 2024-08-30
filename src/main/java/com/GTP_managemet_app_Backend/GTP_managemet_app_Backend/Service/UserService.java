@@ -7,6 +7,7 @@ import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.UserInviteR
 import jakarta.mail.MessagingException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface UserService {
@@ -19,4 +20,6 @@ public interface UserService {
     boolean login(String email, String password);
     boolean isFirstTimeLogin(String email);
     void confirmAccount(String email) throws MessagingException;
+    Map<String, Long> getTrainerToTraineeRatio();
+    Map<String, Long> getSpecializationCount();
 }
