@@ -1,6 +1,7 @@
 package com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Controller;
 
 import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.Role;
+import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.Specialization;
 import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.User;
 import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Model.UserInviteRequest;
 import com.GTP_managemet_app_Backend.GTP_managemet_app_Backend.Service.UserService;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -20,9 +22,9 @@ public class AdminController {
     private final UserService userService;
 
     @PostMapping("/invite")
-    public ResponseEntity<?> inviteUser(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("role") Role role) {
+    public ResponseEntity<?> inviteUser(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("role") Role role, @RequestParam("specialization") Specialization specialization) {
         try {
-            User invitedUser = userService.inviteUser(name, email, role);
+            User invitedUser = userService.inviteUser(name, email, role, specialization);
             return new ResponseEntity<>(invitedUser, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -41,5 +43,17 @@ public class AdminController {
         } catch (MessagingException e) {
             return new ResponseEntity<>("Failed to send one or more invitation emails.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/ratio")
+    public ResponseEntity<Map<String, Long>> getTrainerToTraineeRatio() {
+        Map<String, Long> ratio = userService.getTrainerToTraineeRatio();
+        return ResponseEntity.ok(ratio);
+    }
+
+    @GetMapping("/specializations")
+    public ResponseEntity<Map<String, Long>> getSpecializationCount() {
+        Map<String, Long> specializationCount = userService.getSpecializationCount();
+        return ResponseEntity.ok(specializationCount);
     }
 }
